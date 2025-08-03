@@ -30,14 +30,32 @@ Error Handling: User-friendly messages when invalid case numbers are entered or 
 
 Database Logging: All user queries and raw responses are stored in SQLite for record-keeping.
 
-🖼️ Screenshots
-Home Page / Search Form
+📂 Project Structure
 
-Case Details Dashboard
+court-data-fetcher/
+├── app.py                     # Flask app entry point
+├── court_scraper.py           # Web scraping logic for all courts
+├── database.py                # SQLite database initialization and query logging
+├── queries.db                 # SQLite database file (auto-created)
+├── requirements.txt           # Python dependencies
+├── README.md                  # Project documentation
+├── LICENSE                    # License file (MIT)
+│
+├── templates/                 # Jinja2 HTML templates
+│   ├── index.html             # Main search form UI
+│   └── result.html            # Case details dashboard
+│
+├── static/                    # Static assets (CSS, JS, images)
+│   ├── css/
+│   │   └── styles.css         # Optional custom CSS
+│   └── screenshots/           # Screenshots for README
+│       ├── home_page.png
+│       ├── case_result.png
+│       └── error.png
+│
+└── logs/                      # Optional: store debug logs or raw HTML responses
+    └── debug.log
 
-Error Handling Example
-
-Add 3-4 good screenshots of the form, a successful result, and an error message for invalid cases.
 
 🛠️ Tech Stack
 Backend: Python, Flask
