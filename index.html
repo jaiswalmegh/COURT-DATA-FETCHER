@@ -1,0 +1,102 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Court Data Fetcher</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f9fa; padding: 30px; }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 { text-align: center; color: #007bff; margin-bottom: 20px; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        label { font-weight: bold; }
+        select, input, button {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            background: #007bff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        button:hover { background: #0056b3; }
+        .error { color: red; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Court Data Fetcher</h2>
+
+        <form method="POST">
+            <!-- Court type -->
+            <label for="court_type">Court Type:</label>
+            <select name="court_type" id="court_type" required>
+                <option value="district">District Court (eCourts)</option>
+                <option value="delhi_high">Delhi High Court</option>
+                <option value="supreme">Supreme Court</option>
+            </select>
+
+            <!-- State (only for district court) -->
+            <div id="state_field">
+                <label for="state">State Code (District Court only):</label>
+                <input type="text" name="state" placeholder="e.g., 24 for Delhi">
+            </div>
+
+            <!-- District (only for district court) -->
+            <div id="district_field">
+                <label for="district">District Code (District Court only):</label>
+                <input type="text" name="district" placeholder="e.g., 1 for Central District">
+            </div>
+
+            <!-- Case type -->
+            <label for="case_type">Case Type:</label>
+            <input type="text" name="case_type" placeholder="e.g., CS" required>
+
+            <!-- Case number -->
+            <label for="case_number">Case Number:</label>
+            <input type="text" name="case_number" placeholder="e.g., 1234" required>
+
+            <!-- Year -->
+            <label for="year">Filing Year:</label>
+            <input type="text" name="year" placeholder="e.g., 2023" required>
+
+            <button type="submit">Fetch Case Details</button>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <script>
+        // Hide/show state and district fields depending on court type
+        const courtTypeSelect = document.getElementById('court_type');
+        const stateField = document.getElementById('state_field');
+        const districtField = document.getElementById('district_field');
+
+        function toggleFields() {
+            if (courtTypeSelect.value === 'district') {
+                stateField.style.display = 'block';
+                districtField.style.display = 'block';
+            } else {
+                stateField.style.display = 'none';
+                districtField.style.display = 'none';
+            }
+        }
+
+        // Initial load and change event
+        toggleFields();
+        courtTypeSelect.addEventListener('change', toggleFields);
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Case Result</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f9fa; padding: 20px; }
+        .container { background: #fff; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto; }
+        h2 { color: #007bff; }
+        .error { color: red; font-weight: bold; }
+        .field { margin-bottom: 10px; }
+        a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Case Details</h2>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% elif result %}
+            <div class="field"><strong>Parties:</strong> {{ result.parties }}</div>
+            <div class="field"><strong>Filing Date:</strong> {{ result.filing_date }}</div>
+            <div class="field"><strong>Next Hearing:</strong> {{ result.next_hearing_date }}</div>
+            <div class="field">
+                <strong>Latest Order/Judgment:</strong> 
+                {% if result.pdf_url != 'No recent order found' %}
+                    <a href="{{ result.pdf_url }}" target="_blank">Download PDF</a>
+                {% else %}
+                    No recent order found
+                {% endif %}
+            </div>
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+        <br>
+        <a href="/">Go Back</a>
+    </div>
+</body>
+</html>
